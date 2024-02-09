@@ -1,7 +1,7 @@
 from ipaddress import IPv4Address, IPv4Network
 from unittest import TestCase
 
-from abuseipdb2iptables import read_ips_from_file, filter_ipv4_ips, ips_to_networks, networks_to_iptables_rules
+from abuseipdb2iptables.cli import read_ips_from_file, filter_ipv4_ips, ips_to_networks, networks_to_iptables_rules
 
 
 class TestAbuseIpDb2IpTables(TestCase):
