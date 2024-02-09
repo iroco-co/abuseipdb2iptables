@@ -2,9 +2,21 @@
 
 Small python utility to convert abuseipdb json file into iptables rules.
 
-Usage: 
+## Install
+
+With pip : 
+```shell
+pip install abuseipdb2iptables
+```
+
+## Usage
+
+It will group similar ip addresses with networks CIDR.
 
 ```shell
 abuseipdb2iptables path/to/abuseipdb.json
-
+-A INPUT -s 192.168.1.12/32 -j DROP
+-A INPUT -s 172.16.0.0/16 -j DROP
+-A INPUT -s 10.9.8.7/31 -j DROP
+...
 ```
