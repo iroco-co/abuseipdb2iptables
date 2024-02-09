@@ -1,12 +1,14 @@
+import os
 from ipaddress import IPv4Address, IPv4Network
 from unittest import TestCase
 
 from abuseipdb2iptables.cli import read_ips_from_file, filter_ipv4_ips, ips_to_networks, networks_to_iptables_rules
+script_dir = os.path.dirname(__file__)
 
 
 class TestAbuseIpDb2IpTables(TestCase):
     def test_main(self):
-        self.assertEqual(['192.168.1.2', '10.0.0.1'], read_ips_from_file('fixtures/different.json'))
+        self.assertEqual(['192.168.1.2', '10.0.0.1'], read_ips_from_file(os.path.join(script_dir, 'fixtures/different.json')))
 
     def test_filter_ipv4(self):
         self.assertEqual([IPv4Address('192.168.1.2')], filter_ipv4_ips(['192.168.1.2', '2001:470:1:c84::21']))
