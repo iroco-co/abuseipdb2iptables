@@ -1,4 +1,4 @@
-# abuseipdb2iptables
+# abuseipdb2iptables [![Python application](https://github.com/iroco-co/abuseipdb2iptables/actions/workflows/python-app.yml/badge.svg)](https://github.com/iroco-co/abuseipdb2iptables/actions/workflows/python-app.yml)
 
 Small python utility to convert abuseipdb json file into iptables rules.
 
