@@ -20,11 +20,6 @@ def filter_ipv4_ips(ips: List[str]) -> List[IPv4Address]:
     logger.info('found %s IPv4 addresses', len(ipv4_list))
     return ipv4_list
 
-
-def networks_to_iptables_rules(nets: Generator[IPv4Network, None, None]) -> Generator[str, Any, None]:
-    return (f'-A INPUT -s {net} -j DROP' for net in nets)
-
-
 def ips_to_networks(ips: List[IPv4Address]) -> Generator[IPv4Network, None, None]:
     return ipaddress.collapse_addresses(ips)
 
@@ -35,13 +30,11 @@ def read_ips_from_file(filename: str) -> List[str]:
         return [record['ipAddress'] for record in abuseipdb_json['data']]
 
 
-def main(args) -> Generator[str, Any, None]:
-    return networks_to_iptables_rules(
-                ips_to_networks(
+def main(args) -> Generator[IPv4Network, None, None]:
+    return ips_to_networks(
                     filter_ipv4_ips(
                         read_ips_from_file(args.filename)
-                    )
-                ))
+                    ))
 
 
 def entry_point() -> None:
@@ -49,8 +42,8 @@ def entry_point() -> None:
         prog='abuseipdb2iptables',
         description='Converts abuseipDB json file into iptables format')
     parser.add_argument('filename')
-    for rule in main(parser.parse_args()):
-        print(rule)
+    for network in main(parser.parse_args()):
+        print(network)
 
 
 if __name__ == '__main__':
