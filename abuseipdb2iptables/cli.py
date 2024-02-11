@@ -2,6 +2,7 @@ import argparse
 import ipaddress
 import json
 import logging
+import sys
 from ipaddress import IPv4Address, IPv4Network
 from typing import List, Generator, Any
 
@@ -20,6 +21,7 @@ def filter_ipv4_ips(ips: List[str]) -> List[IPv4Address]:
     logger.info('found %s IPv4 addresses', len(ipv4_list))
     return ipv4_list
 
+
 def ips_to_networks(ips: List[IPv4Address]) -> Generator[IPv4Network, None, None]:
     return ipaddress.collapse_addresses(ips)
 
@@ -27,6 +29,9 @@ def ips_to_networks(ips: List[IPv4Address]) -> Generator[IPv4Network, None, None
 def read_ips_from_file(filename: str) -> List[str]:
     with open(filename, 'r') as file:
         abuseipdb_json = json.load(file)
+        if 'errors' in abuseipdb_json:
+            logger.error("error from AbuseIPDB %s", abuseipdb_json['errors'])
+            sys.exit(5)
         return [record['ipAddress'] for record in abuseipdb_json['data']]
 
 

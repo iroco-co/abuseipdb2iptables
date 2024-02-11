@@ -2,6 +2,8 @@ import os
 from ipaddress import IPv4Address, IPv4Network
 from unittest import TestCase
 
+import pytest
+
 from abuseipdb2iptables.cli import read_ips_from_file, filter_ipv4_ips, ips_to_networks
 script_dir = os.path.dirname(__file__)
 
@@ -18,3 +20,7 @@ class TestAbuseIpDb2IpTables(TestCase):
             [IPv4Address('192.168.1.2'),
              IPv4Address('10.0.0.1'),
              IPv4Address('192.168.1.3')])))
+
+    def test_error_abuse_ip_db(self):
+        with pytest.raises(SystemExit):
+            read_ips_from_file(os.path.join(script_dir, 'fixtures/error.json'))
