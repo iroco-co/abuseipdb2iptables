@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "abuseipdb2iptables"
-version = "0.2.0"
+version = "0.2.1"
 description = ""
 authors = ["Bruno Thomas <bruno@barreverte.fr>"]
 readme = "README.md"
